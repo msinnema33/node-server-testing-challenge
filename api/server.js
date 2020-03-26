@@ -26,7 +26,7 @@ server.use(express.json());
 server.use(cors());
 server.use(session(sessionConfig));
 
-server.use("/users", restricted, usersRouter);
+server.use("/users", usersRouter); //put back in  ( restricted, ) 
 server.use("/auth", authRouter);
 
 server.get("/", (req, res) => {
