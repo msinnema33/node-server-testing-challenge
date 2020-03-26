@@ -6,17 +6,20 @@ const Users = require("../users/users-model.js");
 const secrets = require('../config/secrets.js');
 
 router.post("/register", (req, res) => {
-  const userInfo = req.body;
+  const user = req.body;
 
-  // the pasword will be hashed and re-hashed 2 ^ 8 time
   const ROUNDS = process.env.HASHING_ROUNDS || 8;
   const hash = bcrypt.hashSync(userInfo.password, ROUNDS);
 
-  userInfo.password = hash;
+  user.password = hash;
+  const token = generateToken(user);
 
-  Users.add(userInfo)
+  Users.add(user)
     .then(user => {
-      res.json(user);
+      res.status(201).json({
+        token: token,
+        message: `Welcome ${user.username}`,  
+      });
     })
     .catch(err => res.send(err));
 });
