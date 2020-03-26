@@ -9,7 +9,7 @@ router.post("/register", (req, res) => {
   const user = req.body;
 
   const ROUNDS = process.env.HASHING_ROUNDS || 8;
-  const hash = bcrypt.hashSync(userInfo.password, ROUNDS);
+  const hash = bcrypt.hashSync(user.password, ROUNDS);
 
   user.password = hash;
   const token = generateToken(user);
