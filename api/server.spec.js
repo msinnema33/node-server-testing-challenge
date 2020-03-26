@@ -22,5 +22,5 @@ describe("server.js", function() {
               expect(res.body.api).toBe("up");
           });
       });
-    });
+    });a
   });
